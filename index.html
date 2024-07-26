@@ -34,10 +34,53 @@
     s.id=id;
     d.getElementsByTagName('head')[0].appendChild(s);
     w[x] =  w[x] || function() { (w[x].ac = w[x].ac || []).push(arguments) };
-  })(window, document, 'amazon_connect', 'bfad1fdf-809f-4bbf-b2fe-cad4dcc88d67');
-  amazon_connect('styles', { openChat: { color: '#ffffff', backgroundColor: '#123456'}, closeChat: { color: '#ffffff', backgroundColor: '#123456'} });
-  amazon_connect('snippetId', 'QVFJREFIaTVucjV6blZLVmVuUmIvVHpJa0xaVTRpNURvQ3pianQ3R1hoWGhVcmtmTlFFRjZYcC80OU4ySGZJN3ZkcjhlTTVSQUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNcDVxVnRDRVR0c3d0WVNLZUFnRVFnQ3R6aW93YzRGQ1pudStyZ0RNdXdGRnlGMGJSMFk4MnZ4a3ZFKzBkL3BtRVpFdTZWZW1mbFBDL215N3A6OnJTTDBQV2wrNVhsK0tVUWNYdUtPRjVEaWNkSFcvVVpFdi9NMFNJZzFBelQvMzhKWFVYb2VGS2xtVFc2UjVxVnhWWHd5aURWbkQ4NnBzd2VQc1ljVnZVYXBPTEd0bXhqOEtER2xaQWFRdk1HdUlaYzNFZDRBWmpEZDBjOUtjdFZ4Q1FDeUtxZFJtd1lrbGk0MWZpRTIyeGZZUEVzSjd5dz0=');
-  amazon_connect('supportedMessagingContentTypes', [ 'text/plain', 'text/markdown' ]);
+  })(window, document, 'amazon_connect', '10673ed3-bb2c-4e31-9150-619992098c57');
+  amazon_connect('styles', { iconType: 'CHAT', openChat: { color: '#ffffff', backgroundColor: '#123456' }, closeChat: { color: '#ffffff', backgroundColor: '#123456'} });
+  amazon_connect('snippetId', 'QVFJREFIZ2ZYaENvQWJCb1ZtYmxRNlFMNVJYMlhab3BKY1p0RnRGQ2pJNGhxdnBvemdHWXFxcGpGWVZHT2xNeTU0dHZTSXY1QUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUVFIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNbkM2aDEwVUhwd2hsbjZ3YkFnRVFnQ3NpSklIN2VMRHJadHMvZisvVGdlSVRpWGsyZ2pkZDlLeTQzVWl6RGFPY0c0WHFnMWxMcDA1VndOQms6OllFYlh4cm1keEoxVy9kUjAzeXUwNW9jR0tiVzFNVVIvVVpkR1kxWVgvY2h6emlGOU94QjBqOVlNUHFHNHJYSWxYbEp4bkJoVjJCTTkvek9jOVE5U3VpVGhVbEFYNkNhODlwVmZHVWVoV1paeHF4NEttUFVNNnJXb1phN2lGcjFhQUI2ZWF5cVBQQUVvVkxaNk9vL1ZlSVAwamxjMDdGQT0=');
+  amazon_connect('supportedMessagingContentTypes', [ 'text/plain', 'text/markdown', 'application/vnd.amazonaws.connect.message.interactive', 'application/vnd.amazonaws.connect.message.interactive.response' ]);
+
+  // Function to handle link clicks
+  function handleLinkClick(event) {
+    event.preventDefault(); // Prevent the default link behavior
+
+    var linkUrl = event.target.href;
+    var contentDiv = document.getElementById('content');
+
+    // Load the content from the URL into the contentDiv
+    loadContentFromUrl(linkUrl, contentDiv);
+  }
+
+  // Function to load content from a URL into a div
+  function loadContentFromUrl(url, div) {
+    // Create a new XMLHttpRequest object
+    var xhr = new XMLHttpRequest();
+
+    // Define a callback function to handle the response
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        // If the request is successful
+        if (xhr.status === 200) {
+          // Update the content of the div with the response
+          div.innerHTML = xhr.responseText;
+        } else {
+          // Handle error
+          console.error('Error loading content from URL:', xhr.statusText);
+        }
+      }
+    };
+
+    // Open the request and send it
+    xhr.open('GET', url, true);
+    xhr.send();
+  }
+
+  // Add an event listener to the document for link clicks
+  document.addEventListener('click', function(event) {
+    // Check if the clicked element is a link
+    if (event.target.tagName === 'A') {
+      handleLinkClick(event);
+    }
+  });
 </script>
 
   
